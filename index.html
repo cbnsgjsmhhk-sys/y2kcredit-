@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Pastel Y2K Web Layout with Soft Click Sound</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffe6f2;
+            --grid-line-color: rgba(255, 182, 193, 0.25);
+            --container-bg: rgba(255, 255, 255, 0.85);
+            --container-border: #ffb6c1;
+            --primary-pink: #ff99bb;
+            --primary-blue: #85e3ff;
+            --text-main: #d87093;
+            --text-sub: #555555;
+            --box-bg: #fff5f8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Prompt', sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- เอฟเฟกต์ดาว/หิมะระยิบระยับพื้นหลัง --- */
+        .sparkle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .sparkle {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: fallSnow linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes fallSnow {
+            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(20px); opacity: 0; }
+        }
+
+        /* --- เอฟเฟกต์เวลาคลิกหน้าจอ (คาโอโมจิ) --- */
+        .click-effect {
+            position: absolute;
+            pointer-events: none;
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 600;
+            text-shadow: 0 2px 5px rgba(255, 182, 193, 0.8);
+            animation: clickAnim 0.9s ease-out forwards;
+            z-index: 9999;
+            user-select: none;
+            white-space: nowrap;
+        }
+        @keyframes clickAnim {
+            0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+            100% { transform: translate(-50%, -70px) scale(1.2); opacity: 0; }
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 400px;
+            background: var(--container-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 150, 180, 0.25);
+            overflow: visible;
+            border: 3px solid var(--container-border);
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        @keyframes floatAnim {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* --- 3 จุดตกแต่ง --- */
+        .floating-deco-1 { position: absolute; top: -25px; right: -20px; width: 90px; height: auto; z-index: 20; pointer-events: none; animation: floatAnim 3s ease-in-out infinite; }
+        .floating-deco-1 img { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+
+        .floating-deco-2 { position: absolute; top: 360px; left: -35px; width: 95px; height: auto; z-index: 20; pointer-events: none; animation: floatAnim 3.5s ease-in-out infinite alternate; }
+        .floating-deco-2 img { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+
+        .floating-deco-3 { position: absolute; top: 700px; left: -35px; width: 85px; height: auto; z-index: 20; pointer-events: none; animation: floatAnim 4s ease-in-out infinite; }
+        .floating-deco-3 img { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+
+        /* ส่วนประกอบหน้าเว็บ */
+        .header-section { position: relative; margin-bottom: 25px; text-align: center; }
+        .banner-box {
+            width: 100%; height: 160px; background: var(--box-bg); border: 2px dashed var(--container-border); border-radius: 20px;
+            display: flex; align-items: center; justify-content: center; color: var(--text-main); font-weight: 500; position: relative;
+        }
+        .profile-circle {
+            width: 80px; height: 80px; background: #ffffff; border: 3px solid var(--container-border); border-radius: 50%;
+            position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center;
+            color: var(--text-main); font-size: 12px; font-weight: 500; box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4); overflow: hidden; z-index: 5;
+        }
+        .profile-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        .menu-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 45px; margin-bottom: 20px; gap: 10px; }
+        .btn-pink {
+            flex: 1; background: linear-gradient(135deg, var(--primary-pink), var(--primary-blue)); color: #fff; border: none; padding: 12px 5px;
+            border-radius: 20px; font-size: 13px; font-weight: 600; text-align: center; box-shadow: 0 4px 15px rgba(255, 153, 187, 0.3); cursor: pointer;
+        }
+        .credit-badge {
+            background: #fff; border: 2px solid var(--primary-pink); color: var(--text-sub); padding: 8px 12px; border-radius: 20px; text-align: center; font-size: 12px; font-weight: 600;
+        }
+        .credit-badge span { display: block; font-size: 16px; color: var(--text-main); }
+
+        .main-review-box { background: var(--box-bg); border: 2px solid var(--container-border); border-radius: 20px; padding: 15px; margin-bottom: 20px; }
+        .stars { color: #ffcc00; font-size: 16px; margin-bottom: 8px; background: #ffffff; display: inline-block; padding: 4px 10px; border-radius: 15px; border: 1px solid #ffe4e1; }
+        .review-content { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .mini-avatar { width: 35px; height: 35px; border-radius: 50%; overflow: hidden; border: 2px solid var(--container-border); flex-shrink: 0; }
+        .mini-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .review-text { font-size: 13px; color: var(--text-sub); border-bottom: 1px solid var(--container-border); padding-bottom: 5px; flex: 1; }
+        .small-btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-blue)); color: #fff; border: none; padding: 6px 15px;
+            border-radius: 15px; font-size: 12px; display: block; margin: 10px auto 0 auto; box-shadow: 0 4px 10px rgba(255, 153, 187, 0.2); cursor: pointer;
+        }
+
+        .section-title {
+            text-align: center; background: #ffe4e1; color: var(--text-main); padding: 6px; border-radius: 15px; font-size: 14px; font-weight: 600; margin-bottom: 15px; border: 1px solid var(--container-border);
+        }
+
+        .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .sub-review-card { background: var(--box-bg); border: 2px solid var(--container-border); border-radius: 15px; padding: 10px; }
+        .sub-stars { font-size: 12px; color: #ffcc00; margin-bottom: 5px; }
+        .sub-review-content { display: float; display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+        .sub-text { font-size: 10px; color: var(--text-sub); border-bottom: 1px solid #ffe4e1; padding-bottom: 3px; flex: 1; }
+        .sub-line { height: 4px; background: #ffe4e1; border-radius: 2px; width: 80%; }
+
+        .portfolio-section { background: var(--box-bg); border: 2px solid var(--container-border); border-radius: 20px; padding: 15px; text-align: center; }
+        .portfolio-box {
+            width: 100%; height: 180px; background: #fff; border: 2px dashed var(--container-border); border-radius: 15px;
+            display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 13px; margin-bottom: 12px; overflow: hidden;
+        }
+        .portfolio-box img { width: 100%; height: 100%; object-fit: cover; }
+        .portfolio-nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-btn {
+            background: var(--primary-pink); border: none; color: #fff; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 3px 8px rgba(255, 153, 187, 0.3);
+        }
+        .nav-btn:hover { background: #ff75a0; }
+        .portfolio-indicator { font-size: 12px; color: var(--text-main); font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <!-- 🔊 ตัวเล่นเสียง "คลิกนุ่มๆ" (ตั้งค่าความดังละมุนที่ 35% ไม่แสบหู) -->
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
+    <div class="sparkle-bg" id="sparkleContainer"></div>
+
+    <div class="phone-container">
+
+        <div class="floating-deco-1"><img src="ใส่ลิงก์รูปที่3ตรงนี้" alt="Deco 1"></div>
+        <div class="floating-deco-2"><img src="ใส่ลิงก์รูปที่1ตรงนี้" alt="Deco 2"></div>
+        <div class="floating-deco-3"><img src="ใส่ลิงก์รูปที่2ตรงนี้" alt="Deco 3"></div>
+
+        <div class="header-section">
+            <div class="banner-box">ไว้ใส่รูป Banner</div>
+            <div class="profile-circle">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Profile">
+            </div>
+        </div>
+
+        <div class="menu-buttons">
+            <button class="btn-pink" id="btnScrollReview">กรอกเครดิต</button>
+            <div class="credit-badge">รวมเครดิต<span>+4</span></div>
+            <button class="btn-pink" id="btnScrollAllReviews">รวมรีวิวเครดิต</button>
+        </div>
+
+        <div class="main-review-box" id="mainReviewTarget">
+            <div class="stars">★★★★★★</div>
+            <div class="review-content">
+                <div class="mini-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar"></div>
+                <div class="review-text">+1 ร้านคุณบี้ยำบริการดีมากค่าา</div>
+            </div>
+            <button class="small-btn" id="submitBtn">ส่ง</button>
+        </div>
+
+        <div class="section-title" id="bottomReviewSection">รวมเครดิตรีวิว</div>
+
+        <div class="reviews-grid">
+            <div class="sub-review-card">
+                <div class="sub-stars">★★★★★★</div>
+                <div class="sub-review-content">
+                    <div class="mini-avatar" style="width: 25px; height: 25px;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar"></div>
+                    <div class="sub-text">+1 บริการดีมาก</div>
+                </div>
+                <div class="sub-line"></div>
+            </div>
+            <div class="sub-review-card">
+                <div class="sub-stars">★★★★★★</div>
+                <div class="sub-review-content">
+                    <div class="mini-avatar" style="width: 25px; height: 25px;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar"></div>
+                    <div class="sub-text">+1 ส่งไวมากค่ะ</div>
+                </div>
+                <div class="sub-line"></div>
+            </div>
+            <div class="sub-review-card">
+                <div class="sub-stars">★★★★★★</div>
+                <div class="sub-review-content">
+                    <div class="mini-avatar" style="width: 25px; height: 25px;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar"></div>
+                    <div class="sub-text">+1 ไว้มาอุดหนุนอีก</div>
+                </div>
+                <div class="sub-line"></div>
+            </div>
+            <div class="sub-review-card">
+                <div class="sub-stars">★★★★★★</div>
+                <div class="sub-review-content">
+                    <div class="mini-avatar" style="width: 25px; height: 25px;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Avatar"></div>
+                    <div class="sub-text">+1 แม่ค้าน่ารัก</div>
+                </div>
+                <div class="sub-line"></div>
+            </div>
+        </div>
+
+        <div class="section-title">ผลงานของฉัน (Portfolio)</div>
+        <div class="portfolio-section">
+            <div class="portfolio-box" id="portfolioBox"><span>ไว้ใส่รูปผลงาน 1</span></div>
+            <div class="portfolio-nav">
+                <button class="nav-btn" onclick="prevPortfolio()">◄ ก่อนหน้า</button>
+                <span class="portfolio-indicator" id="portfolioIndicator">1 / 3</span>
+                <button class="nav-btn" onclick="nextPortfolio()">ถัดไป ►</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. สร้างดาว/หิมะพื้นหลัง
+        const container = document.getElementById('sparkleContainer');
+        const sparkleCount = 35;
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            const size = Math.random() * 3 + 2;
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.top = `${Math.random() * -20}px`;
+            sparkle.style.animationDuration = `${Math.random() * 5 + 3}s`;
+            sparkle.style.animationDelay = `${Math.random() * 5}s`;
+            container.appendChild(sparkle);
+        }
+
+        // 2. ระบบเสียงคลิกนุ่มๆ และคาโอโมจิ
+        const cuteSymbols = ['˶ˊᜊˋ˶', 'ּ ֶָ֢.', '☘', '✩', '𖦹'];
+        const clickSound = document.getElementById('clickSound');
+        clickSound.volume = 0.35; // ตั้งความดัง 35% ละมุนกำลังดี
+
+        document.addEventListener('click', function(e) {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(error => {
+                console.log("Audio play blocked by browser interaction policy");
+            });
+
+            const effect = document.createElement('div');
+            effect.classList.add('click-effect');
+            effect.innerText = cuteSymbols[Math.floor(Math.random() * cuteSymbols.length)];
+            effect.style.left = `${e.pageX}px`;
+            effect.style.top = `${e.pageY}px`;
+            document.body.appendChild(effect);
+            setTimeout(() => effect.remove(), 900);
+        });
+
+        // 3. ระบบกดเลื่อนรูปผลงานจริง (Portfolio Slider)
+        const portfolioData = [
+            { type: 'text', content: 'ไว้ใส่รูปผลงาน 1' },
+            { type: 'image', content: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=400' },
+            { type: 'image', content: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400' }
+        ];
+        let currentIndex = 0;
+
+        function updatePortfolio() {
+            const box = document.getElementById('portfolioBox');
+            const indicator = document.getElementById('portfolioIndicator');
+            const currentItem = portfolioData[currentIndex];
+            if (currentItem.type === 'text') {
+                box.innerHTML = `<span>${currentItem.content}</span>`;
+            } else {
+                box.innerHTML = `<img src="${currentItem.content}" alt="Portfolio">`;
+            }
+            indicator.innerText = `${currentIndex + 1} / ${portfolioData.length}`;
+        }
+
+        function nextPortfolio() {
+            currentIndex = (currentIndex + 1) % portfolioData.length;
+            updatePortfolio();
+        }
+
+        function prevPortfolio() {
+            currentIndex = (currentIndex - 1 + portfolioData.length) % portfolioData.length;
+            updatePortfolio();
+        }
+
+        // 4. ฟังก์ชันเลื่อนหน้าจออัตโนมัติ (Smooth Scrolling)
+        document.getElementById('btnScrollReview').addEventListener('click', function() {
+            document.getElementById('mainReviewTarget').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('btnScrollAllReviews').addEventListener('click', function() {
+            document.getElementById('bottomReviewSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            document.getElementById('bottomReviewSection').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+  </html>
+              
